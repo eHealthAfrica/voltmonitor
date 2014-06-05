@@ -1,0 +1,4 @@
+{
+    "name": "Voltage Monitoring",
+    "description": "CouchApp that displays time-series voltage data."
+}
