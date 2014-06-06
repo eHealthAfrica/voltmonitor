@@ -39,13 +39,13 @@
        <!-- Begin page content -->
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h4>Sensor Sites</h4>
                     <div class="list-group">
-                      <a ng-repeat="sensor in sensors.rows" ng-href="#/data/{{sensor.doc.sensor_tag}}" class="list-group-item">{{sensor.doc.location}} ({{sensor.doc.logger_sn}}:{{sensor.doc.sensor_sn}})</a>
+                      <a ng-repeat="sensor in sensors.rows" ng-href="#/data/{{sensor.doc.sensor_tag}}" class="list-group-item">{{sensor.doc.location}} <br/> ({{sensor.doc.logger_sn}}:{{sensor.doc.sensor_sn}})</a>
                     </div>
                 </div>
-                <div class="col-md-8" ng-view>
+                <div class="col-md-9" ng-view>
 
                 </div>
             </div>

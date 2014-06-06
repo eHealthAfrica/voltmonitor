@@ -13,6 +13,9 @@ angular.module('voltsapp', [
         }).when('/data', {
             templateUrl: 'templates/data.html',
             controller: 'DataCtrl'
+        }).when('/data/:sensor_tag', {
+            templateUrl: 'templates/data.html',
+            controller: 'DataCtrl'
         }).otherwise({
             templateUrl: 'templates/home.html',
             controller: 'HomeCtrl'
