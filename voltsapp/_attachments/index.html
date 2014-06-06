@@ -1,66 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="voltsapp">
   <head>
-    <title>Example CouchApp</title>
-    <link rel="stylesheet" href="style/main.css" type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VoltsApp</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="style/main.css">
   </head>
   <body>
-    <div id="account"></div>
-
-    <h1>Example CouchApp</h1>
-
-    <div id="profile">
-    </div>
-    <div id="content"></div>
-
-    <div id="sidebar">
-      <p>Edit welcome message.</p>
-      <p>Ideas: You could easily turn this into a photo sharing app, 
-          or a grocery list, or a chat room. <a href="https://github.com/couchapp/example">Code for this app is on Github.</a></p>
-    </div>
-  </body>
-  <script src="/_utils/script/sha1.js"></script>
-  <script src="/_utils/script/json2.js"></script>
-  <script src="/_utils/script/jquery.js"></script>
-  <script src="/_utils/script/jquery.couch.js"></script>
-  <script src="vendor/couchapp/jquery.couchLogin.js"></script>
-  <script src="vendor/couchapp/jquery.couchProfile.js"></script>
-  <script src="vendor/couchapp/md5.js"></script>
-  <script src="vendor/couchapp/jquery.mustache.js"></script>
-
-<!-- templates used by app.js -->
-  <script id="new-message" type="text/x-mustache" charset="utf-8">
-      <div class="avatar">
-        {{#gravatar_url}}<img src="{{gravatar_url}}"/>{{/gravatar_url}}
-        <div class="name">
-          {{name}}
+      <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ng-href="#/home">Voltage Monitoring</a>
         </div>
-      </div>
-      <form id="create-message">
-        <label>New message from {{nickname}}: <input type="text" name="message" size=60 value=""></label>
-      </form>
-      <div style="clear:left;"></div>
-  </script>
 
-  <script id="recent-messages" type="text/x-mustache" charset="utf-8">
-        <h3>Recent Messages</h3>
-        <ul id="items">
-          {{#items}}
-            <li>
-              <div class="avatar">
-                {{#gravatar_url}}<img src="{{gravatar_url}}" alt="{{name}}"/>{{/gravatar_url}}
-                <div class="name">
-                  {{nickname}}
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a ng-href="#/home">Locations</a></li>
+            <li><a ng-href="#/data">Data</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+     <!-- Wrap all page content here -->
+    <div id="wrap" ng-controller="HomeCtrl">
+       <!-- Begin page content -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Sensor Sites</h4>
+                    <div class="list-group">
+                      <a ng-repeat="sensor in sensors.rows" ng-href="#/data/{{sensor.doc.sensor_tag}}" class="list-group-item">{{sensor.doc.location}} ({{sensor.doc.logger_sn}}:{{sensor.doc.sensor_sn}})</a>
+                    </div>
                 </div>
-              </div>
-              <p>{{message}}</p>
-              <div style="clear:left;"></div>
-            </li>
-          {{/items}}
-        </ul>
-        <p><em>Protip:</em> If you setup continuous replication between this database and a remote one, this list will reflect remote changes in near real-time.</p>
-        <p>This would be a good place to add pagination.</p>
-  </script>
-  <script src="script/app.js"></script>
+                <div class="col-md-8" ng-view>
 
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container text-muted">
+        created by <a href="http://ehealthafrica.org/">eHealth Systems Africa Foundation</a>.  data last updated ...
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-route.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-resource.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="script/app.js"></script>
+    <script src="script/controllers.js"></script>
+    <script src="script/services.js"></script>
+  </body>
 </html>
