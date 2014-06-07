@@ -7,11 +7,12 @@
     <title>VoltsApp</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="vendor/style/bootstrap.min.css">
+    <!-- link rel="stylesheet" href="vendor/style/leaflet.css" / -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
     <link rel="stylesheet" href="style/main.css">
   </head>
-  <body>
+  <body  ng-controller="HomeCtrl">
       <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -22,30 +23,29 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" ng-href="#/home">Voltage Monitoring</a>
+          <a class="navbar-brand" ui-sref="home">Voltage Monitoring</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a ng-href="#/home">Locations</a></li>
-            <li><a ng-href="#/data">Data</a></li>
+            <li><a ui-sref="home">Home</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
      <!-- Wrap all page content here -->
-    <div id="wrap" ng-controller="HomeCtrl">
+    <div id="wrap">
        <!-- Begin page content -->
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
                     <h4>Sensor Sites</h4>
                     <div class="list-group">
-                      <a ng-repeat="sensor in sensors.rows" ng-href="#/data/{{sensor.doc.sensor_tag}}" class="list-group-item">{{sensor.doc.location}} <br/> ({{sensor.doc.logger_sn}}:{{sensor.doc.sensor_sn}})</a>
+                      <a ng-repeat="sensor in sensors.rows" ui-sref="data({logger:sensor.doc.logger_sn})" class="list-group-item">{{sensor.doc.location}} <br/> ({{sensor.doc.logger_sn}}:{{sensor.doc.sensor_sn}})</a>
                     </div>
                 </div>
-                <div class="col-md-9" ng-view>
+                <div class="col-md-9" ui-view>
 
                 </div>
             </div>
@@ -60,13 +60,15 @@
       </div>
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-route.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-resource.min.js"></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <!--  -->
+    <script src="vendor/scripts/jquery-1.11.0.min.js"></script>
+    <script src="vendor/scripts/bootstrap.min.js"></script>
+    <script src="vendor/scripts/angular.min.js"></script>
+    <script src="vendor/scripts/angular-resource.min.js"></script>
+    <script src="vendor/scripts/angular-ui-router.min.js"></script>
+    <!-- script src="vendor/scripts/leaflet.js"></script -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script src="vendor/scripts/highcharts.js"></script>
     <script src="script/app.js"></script>
     <script src="script/controllers.js"></script>
     <script src="script/services.js"></script>

@@ -21,11 +21,7 @@
 
         var sensor_docs = $('[ng-controller="HomeCtrl"]').scope().sensors.rows;
 
-        console.log(sensor_docs);
-
         $.each(sensor_docs, function(k,v) {
-            console.log(k);
-            console.log(v);
             var location = v.doc.location;
             var sensor_tag = v.doc.sensor_tag;
             var sensor_sn = v.doc.sensor_sn;
@@ -34,7 +30,7 @@
             var gps_spl = gps_s.split(',');
 
             L.marker([parseFloat(gps_spl[0]), parseFloat(gps_spl[1])]).addTo(map)
-                    .bindPopup("<b><a href=\'#/data/"+sensor_tag+"\'>"+sensor_tag+": "+location+"</a></b><br />("+logger_sn+":"+sensor_sn+")").openPopup();
+                    .bindPopup("<b><a href=\'#/data/"+logger_sn+"\'>"+sensor_tag+": "+location+"</a></b><br />("+logger_sn+":"+sensor_sn+")").openPopup();
         });
 
     });

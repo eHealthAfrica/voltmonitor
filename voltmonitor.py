@@ -7,7 +7,7 @@ import os
 import datetime
 import re
 import couchdb
-from couchdb.mapping import Document, TextField, DateTimeField, DateField, BooleanField
+from couchdb.mapping import Document, TextField, DateTimeField, BooleanField, IntegerField
 from uuid import uuid4
 from sensors import sensors
 import config
@@ -15,7 +15,7 @@ import config
 
 class Volts(Document):
     sensor_sn = TextField()
-    logger_sn = TextField()
+    logger_sn = IntegerField()
     location = TextField()
     gps = TextField()
     date = DateTimeField()

@@ -1,23 +1,25 @@
 'use strict';
 
-console.log("app.js");
-
-angular.module('voltsapp', [
-        'ngRoute',
-        'ngResource'
-    ])
-    .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/home', {
-            templateUrl: 'templates/home.html',
-            controller: 'HomeCtrl'
-        }).when('/data', {
-            templateUrl: 'templates/data.html',
-            controller: 'DataCtrl'
-        }).when('/data/:sensor_tag', {
-            templateUrl: 'templates/data.html',
-            controller: 'DataCtrl'
-        }).otherwise({
-            templateUrl: 'templates/home.html',
-            controller: 'HomeCtrl'
-        });
+angular.module('voltsapp', ['ngResource','ui.router'])
+    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise("/home");
+        $stateProvider
+            .state('home', {
+                url: "/home",
+                templateUrl: "templates/home.html",
+                controller: 'HomeCtrl'
+            })
+            .state('data', {
+                url: "/data/:logger",
+                templateUrl: "templates/data.html",
+                resolve: {
+                    voltsService: 'voltsService',
+                    volts: function(voltsService, $stateParams) {
+                        console.log($stateParams);
+                        var logger = $stateParams.logger;
+                        return voltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:"\""+logger+"\""}).$promise;
+                    }
+                },
+                controller: 'DataCtrl'
+            });
     }]);
