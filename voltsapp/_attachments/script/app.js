@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('voltsapp', ['ngResource','ui.router'])
+angular.module('voltsapp', ['ngResource','ui.router', 'highcharts-ng'])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/home");
         $stateProvider

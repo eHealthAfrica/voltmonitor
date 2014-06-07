@@ -1,65 +1,19 @@
 <div id="volt-data">
-<h4>Voltage Data: Sensor Information Here</h4>
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<h4>Voltage Data</h4>
+<!-- chart value="volts_chart" type="area" height="400" chart-obj='chartObj'></chart -->
 
-<div ng-repeat="row in volts.rows">{{row.value[0]}} {{row.value[1]}} {{row.value[2]}}</div>
+<highchart id="volts_chart" config="chartConfig"></highchart>
 
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(function () {
-        var volts = $('[id="volt-data"]').scope().volts;
-        console.log(volts);
+<table id="volts_table" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Volts</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in volts.rows"><td>{{row.value[2]}}</td><td>{{row.value[1]}}</td></tr>
+    </tbody>
+</table>
 
-        $('#container').highcharts({
-            chart: {
-                zoomType: 'x'
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                type: 'datetime',
-                minRange: 14 * 24 * 3600000 // fourteen days
-            },
-            yAxis: {
-                title: {
-                    text: 'Exchange rate'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
-
-            series: [{
-                type: 'area',
-                name: 'USD to EUR',
-                pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2006, 0, 01),
-                data: []
-            }]
-        });
-
-
-    });
-</script>
 </div>

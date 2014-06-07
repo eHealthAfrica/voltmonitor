@@ -19,7 +19,10 @@
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
-        var sensor_docs = $('[ng-controller="HomeCtrl"]').scope().sensors.rows;
+        var scope = $('[ng-controller="HomeCtrl"]').scope();
+        console.log(scope);
+        var sensor_docs = scope.sensors.rows;
+        console.log(sensor_docs);
 
         $.each(sensor_docs, function(k,v) {
             var location = v.doc.location;
