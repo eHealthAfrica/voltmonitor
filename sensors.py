@@ -17,7 +17,7 @@ class Sensor(Document):
 def sensors():
     return {
         "EHA1": {"sensor": "Scaled Series (S-FS-TRMSA 10509728:10469134-1), V, volts-active",
-                 "sensor-sn": "10469134-1", "gps": "11.995840, 8.549367", "location": "Kano", "logger-sn": "10509728"},
+                 "sensor-sn": "10469134-1", "gps": "11.995840,8.549367", "location": "Kano", "logger-sn": "10509728"},
         "EHA2": {"sensor": "Scaled Series (S-FS-TRMSA 10509737:10469153-1), V, volts-active",
                  "sensor-sn": "10469153-1", "gps": "10.321056,9.830772", "location": "Bauchi", "logger-sn": "10509737"},
         "EHA3": {"sensor": "Scaled Series (S-FS-TRMSA 10509738:10469137-1), V, volts-active",
@@ -42,8 +42,11 @@ def sensors():
                  "sensor-sn": "10469132-1", "gps": "11.091378,9.571906", "location": "Bauchi-Ningi",
                  "logger-sn": "10513774"},
         "EHA10": {"sensor": "Scaled Series (S-FS-TRMSA 10513770:10469148-1), V, volts-active",
-                  "sensor-sn": "10469148-1", "gps": "11.9987528, 8.5224001", "location": "Kano-Murtala_Mohammed",
+                  "sensor-sn": "10469148-1", "gps": "11.9987528,8.5224001", "location": "Kano-Murtala_Mohammed",
                   "logger-sn": "10513770"},
+        "EHA13": {"sensor": "Scaled Series (S-FS-TRMSA 10513777:10469130-1), V, volts-active",
+                  "sensor-sn": "10469130-1", "gps": "11.991818,8.543012", "location": "Kano-Hasiya_Bayero",
+                  "logger-sn": "10513777"},
         "EHA15": {"sensor": "Scaled Series (S-FS-TRMSA 10509734:10469138-1), V, volts-active",
                   "sensor-sn": "10469138-1", "gps": "11.700956,8.128664", "location": "Kano-Kiru",
                   "logger-sn": "10509734"},
