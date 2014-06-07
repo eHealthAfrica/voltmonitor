@@ -89,3 +89,6 @@ def sensors_from_couch():
     # TODO: load sensors from couch for use in daily processing
 
     return True
+
+if __name__ == "__main__":
+    sensors_to_couch()
