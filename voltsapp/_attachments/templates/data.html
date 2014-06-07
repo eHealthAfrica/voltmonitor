@@ -1,3 +1,4 @@
+<div id="volt-data">
 <h4>Voltage Data: Sensor Information Here</h4>
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
@@ -5,7 +6,8 @@
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function () {
-        var volts = $('[ng-controller="HomeCtrl"]').scope().volts;
+        var volts = $('[id="volt-data"]').scope();
+        console.log(volts);
 
         $('#container').highcharts({
             chart: {
@@ -60,3 +62,4 @@
 
     });
 </script>
+</div>

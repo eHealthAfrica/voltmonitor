@@ -15,7 +15,6 @@ angular.module('voltsapp', ['ngResource','ui.router'])
                 resolve: {
                     voltsService: 'voltsService',
                     volts: function(voltsService, $stateParams) {
-                        console.log($stateParams);
                         var logger = $stateParams.logger;
                         return voltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:"\""+logger+"\""}).$promise;
                     }

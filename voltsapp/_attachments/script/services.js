@@ -11,9 +11,9 @@ angular.module('voltsapp').factory('sensorsService', function($resource) {
     );
 });
 
-//angular.module('voltsapp').factory('voltsService',['$resource', function($resource) {
-//    return $resource(':protocol//:server/:db/:q/:r/:s/:t', {
-//            protocol: 'http:', server: 'localhost:5984', db: 'volts'
-//        }
-//    );
-//}]);
+angular.module('voltsapp').factory('voltsService',['$resource', function($resource) {
+    return $resource(':protocol//:server/:db/:q/:r/:s/:t', {
+            protocol: 'http:', server: 'localhost:5984', db: 'volts'
+        }
+    );
+}]);

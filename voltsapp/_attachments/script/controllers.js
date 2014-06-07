@@ -7,26 +7,12 @@
 angular.module('voltsapp').controller('HomeCtrl', function($scope, $stateParams, sensorsService) {
 
     $scope.sensors = sensorsService.get({q:'_all_docs', include_docs: 'true', limit: 25});
-//    console.log(volts);
-//    $scope.volts = volts;
-//    if ($state == 'data') {
-//        // $scope.volts = VoltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:"\""+$routeParams.logger_sn+"\""});
-//        $scope.volts = volts;
-//        console.log($scope.volts);
-//    }
 
 });
 
-angular.module('voltsapp').controller('DataCtrl', function($scope, $stateParams, sensorsService) {
+angular.module('voltsapp').controller('DataCtrl', function($scope, $stateParams, volts) {
 
     //$scope.sensors = sensorsService.get({q:'_all_docs', include_docs: 'true', limit: 25});
-    console.log($stateParams);
-//    console.log(volts);
-//    $scope.volts = volts;
-//    if ($state == 'data') {
-//        // $scope.volts = VoltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:"\""+$routeParams.logger_sn+"\""});
-//        $scope.volts = volts;
-//        console.log($scope.volts);
-//    }
+    $scope.volts = volts;
 
 });
