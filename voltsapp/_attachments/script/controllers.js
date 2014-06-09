@@ -45,7 +45,9 @@ angular.module('voltsapp').controller('DataCtrl', function($scope, $stateParams,
             yAxis: {
                 title: {
                     text: 'Voltage (V)'
-                }
+                },
+                floor: 0,
+                ceiling: 350
             },
             legend: {
                 enabled: false
