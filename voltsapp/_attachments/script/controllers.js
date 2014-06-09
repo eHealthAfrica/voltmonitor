@@ -36,11 +36,9 @@ angular.module('voltsapp').controller('DataCtrl', function($scope, $stateParams,
             chart: {
                 zoomType: 'x'
             },
-//            title: {
-//                text: ''
-//            },
             xAxis: {
-                type: 'datetime' //, minRange: 14 * 24 * 3600000 // fourteen days
+                type: 'datetime', //, minRange: 14 * 24 * 3600000 // fourteen days
+                tickInterval: 24 * 3600 * 1000 * 2
             },
             yAxis: {
                 title: {
