@@ -17,10 +17,6 @@ angular.module('voltsapp', ['ngResource','ui.router','highcharts-ng'])
                     volts: function(voltsService, $stateParams) {
                         var logger = $stateParams.logger;
                         return voltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:"\""+logger+"\""}).$promise;
-                    },
-                    volts_hour_stats: function(voltsService, $stateParams) {
-                        var logger = $stateParams.logger;
-                        return voltsService.get({q:'_design', r:'volts', s:'_view', t:'stats', startkey:"["+logger+"]", endkey:"["+logger+",{}]", group: true}).$promise;
                     }
                 },
                 controller: 'DataCtrl'
