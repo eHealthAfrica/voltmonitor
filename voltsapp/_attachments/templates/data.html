@@ -1,10 +1,11 @@
 <div id="volt-data">
-<h4>Voltage Data</h4>
+<h4>Voltage Data {{logger}}</h4>
 <!-- chart value="volts_chart" type="area" height="400" chart-obj='chartObj'></chart -->
 
-<highchart id="volts_chart" config="chartConfig"></highchart>
+<highchart id="volts_chart" config="chartConfig1"></highchart>
+<highchart id="volts_summary_chart" config="chartConfig2"></highchart>
 
-<table id="volts_table" class="display" cellspacing="0" width="100%">
+<!-- table id="volts_table" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
         <th>Date</th>
@@ -14,6 +15,6 @@
     <tbody>
     <tr ng-repeat="row in volts.rows"><td>{{row.value[2]}}</td><td>{{row.value[1]}}</td></tr>
     </tbody>
-</table>
+</table -->
 
 </div>
