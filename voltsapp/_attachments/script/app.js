@@ -7,6 +7,12 @@ angular.module('voltsapp', ['ngResource','ui.router','highcharts-ng'])
             .state('home', {
                 url: "/home",
                 templateUrl: "templates/home.html",
+                resolve: {
+                    sensorsService: 'sensorsService',
+                    sensors: function(sensorsService, $stateParams) {
+                        return sensorsService.get({q:'_all_docs', include_docs: 'true', limit: 25});
+                    }
+                },
                 controller: 'HomeCtrl'
             })
             .state('data', {
@@ -16,7 +22,7 @@ angular.module('voltsapp', ['ngResource','ui.router','highcharts-ng'])
                     voltsService: 'voltsService',
                     volts: function(voltsService, $stateParams) {
                         var logger = $stateParams.logger;
-                        return voltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:"\""+logger+"\""}).$promise;
+                        return voltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:logger}).$promise;
                     }
                 },
                 controller: 'DataCtrl'

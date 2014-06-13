@@ -12,8 +12,6 @@ angular.module('voltsapp').controller('HomeCtrl', function($scope, $stateParams,
 
 angular.module('voltsapp').controller('DataCtrl', function($scope, $stateParams, volts) {
 
-    // $scope.volts = volts;
-    // $scope.volts_hour_stats = volts_hour_stats;
     $scope.logger = $stateParams.logger;
 
     // Create data series array from volts object [[d1,v1],[d2,v2] ...]
