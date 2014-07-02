@@ -4,11 +4,11 @@ source("helpers.R")
 options(scipen=999999)
 
 critical_threshold <- 8 * 60 * 60
-#data <- read_outage_data()
+data <- read_outage_data()
 full_outage <- by(data, data$key, construct_outage_data)
 full_outage <- do.call("rbind", full_outage)
 
-# Writing summary of voltage measurements
+# Summary of voltage measurements throughout all posts
 cat("Quantiles of voltage size:\n")
 print(quantile(data$voltage))
 
@@ -52,6 +52,8 @@ critical_outages$name <- row.names(critical_outages)
 colnames(critical_outages) <- c("share", "name")
 critical_outages <- transform(critical_outages, 
           name = reorder(name, share))
+
+#Plotting outages > 8h by measurement post
 p <- ggplot(critical_outages, 
             aes(y = share,
                 x = name)) +
