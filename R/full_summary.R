@@ -9,7 +9,7 @@ full_outage <- by(data, data$key, construct_outage_data)
 full_outage <- do.call("rbind", full_outage)
 
 # Summary of voltage measurements throughout all posts
-cat("Quantiles of voltage size:\n")
+cat("Quantiles of network voltage:\n")
 print(quantile(data$voltage))
 
 hist(data$voltage,

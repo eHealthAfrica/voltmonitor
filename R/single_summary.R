@@ -31,4 +31,6 @@ cat(paste("Longest outage happened between",
 cat("Number of outages by time, min:")
 print(table(outages$bucket))
 
-hist(outages$duration)
+hist(outages$duration,
+     main="Distribution of blackout time\nat Kano measurement post",
+     xlab = "duration, sec")
