@@ -27,6 +27,9 @@ read_outage_data <- function(key_id){
   #Sorting dataframe by timestamp
   data$ts <- strptime(data$timestamp, "%Y-%m-%dT%H:%M:%S")
   data <- data[with(data, order(timestamp)), ]
+  voltage_breaks <- c(-Inf, 100, 150, 200, 250, 300, Inf)
+  voltage_labels <- c("<=100V","(100V,150V]","(150V,200V]","(200V,250V]","(250V,300V]",">300V")
+  data$bucket <- cut(data$voltage, voltage_breaks, dig.lab=10,labels=voltage_labels)
   data
 }
 
@@ -36,13 +39,13 @@ construct_outage_data <- function(data){
   names(vector) <- colnames(outages)
   # dataset is counstructed using read_outage function
   for(i in 1:(nrow(data) - 1)) {
-    if(data[i,4] < 10) {
+    if(data[i,"voltage"] <= 10) {
       if(is.na(vector["outage_start"])) {
         vector["outage_start"] <- data[i,"timestamp"]
         vector["id_start"] <- data[i,"id"]
       }
       
-      if(data[i+1,4] > 10) {
+      if(data[i+1,"voltage"] > 10) {
         vector["outage_end"] <- data[i,"timestamp"]
         vector["id_end"] <- data[i,"id"]
         vector["key"] <- as.character(data[i,"key"])
@@ -58,10 +61,10 @@ construct_outage_data <- function(data){
   outages <- outages[-1,]
   outages$outage_start <- strptime(outages$outage_start, "%Y-%m-%dT%H:%M:%S")
   outages$outage_end <- strptime(outages$outage_end, "%Y-%m-%dT%H:%M:%S")
-  outages$duration <- as.numeric(outages$outage_end - outages$outage_start ) #In SECONDS
+  outages$duration <- as.numeric(difftime(outages$outage_end,outages$outage_start,units="secs")) #In SECONDS
   dur_breaks <- c(-1,10,30,60,120,240,Inf) * 60 # label by outage duration is in MINUTES 
   dur_labels <- c("<=10","(10,30]","(30,60]","(60,120]","(120,240]",">240")
-  outages$bucket <- cut(outages$duration, dur_breaks,dig.lab=10, labels = dur_labels)
+  outages$bucket <- cut(outages$duration, dur_breaks, dig.lab=10, labels = dur_labels)
   outages
 }
 

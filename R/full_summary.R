@@ -9,20 +9,43 @@ full_outage <- by(data, data$key, construct_outage_data)
 full_outage <- do.call("rbind", full_outage)
 
 # Summary of voltage measurements throughout all posts
-cat("Quantiles of network voltage:\n")
-print(quantile(data$voltage))
+cat("Voltage distribution by intervals:\n")
+summary <- table(data$bucket)/nrow(data)
+summary <-as.data.frame(summary)
+summary$Freq <- percent(summary$Freq)
+colnames(summary) <- c('Interval', "Share")
+print(summary, row.names=F)
 
-hist(data$voltage,
-     main="Distribution of grid voltage",
-     xlab="voltage")
+#Plotting share of voltage summary buckets by measurement post
+buckets_by_post <- by(data, data$name, function(x){table(x$bucket)/nrow(x)})
+buckets_by_post <- do.call(rbind, buckets_by_post)
+buckets_by_post <- as.data.frame(buckets_by_post)
+buckets_by_post <- buckets_by_post[with(buckets_by_post, order(buckets_by_post[,"<=100V"])),]
+buckets_by_post$name <- row.names(buckets_by_post)
+order_vector <- buckets_by_post$name
+row.names(buckets_by_post) <- NULL
+buckets_by_post <- melt(buckets_by_post)
 
-p <- ggplot(data, aes(voltage)) + 
-  geom_histogram(binwidth = 30) + 
-  facet_wrap(~name, scales="free") +
-  ggtitle("Distribution of grid voltage by measure post") +
+buckets_by_post$n_n <- factor(buckets_by_post$name, levels=order_vector)
+
+q <- ggplot(buckets_by_post, aes(x=n_n, y=value, order=n_n)) +
+  geom_bar(stat="identity",aes(fill=variable)) +
+  coord_flip() +
+  ggtitle(expression(
+    atop("Share of voltage measurements", 
+         atop(italic("by post and group"), "")))) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_manual(values=c("#d73027","#fc8d59","#fee090","#e0f3f8","#91bfdb","#4575b4"),
+                    name="Voltage group") +
   theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-print(p)
+        axis.title.y = element_blank(),
+        axis.text.x = element_text(colour = 'black'),
+        axis.text.y = element_text(colour = 'black'),
+        panel.grid.major.x = element_line(colour = 'gray'),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white"))
+
+print(q)
 
 # Writing summary of full outage data to console
 cat("\nTotal number of blackouts:",
@@ -30,8 +53,12 @@ cat("\nTotal number of blackouts:",
 cat("\nMedian blackout time:",
     median(full_outage$duration)/60, 
     "minutes")
-cat("\nBlackout distribution by time interval, minutes:\n")
-print(table(full_outage$bucket))
+cat("\n\nBlackout distribution by time interval:\n")
+summary <- table(full_outage$bucket)/nrow(data)
+summary <-as.data.frame(summary)
+summary$Freq <- percent(summary$Freq)
+colnames(summary) <- c('Interval, minutes', "Share")
+print(summary, row.names=F)
 
 cat(paste("\nNumber of outages > 8 hrs: ",
           sum(full_outage$duration >= critical_threshold)))
@@ -57,7 +84,7 @@ critical_outages <- transform(critical_outages,
 p <- ggplot(critical_outages, 
             aes(y = share,
                 x = name)) +
-  geom_bar(stat="identity", binwidth = 30) +
+  geom_bar(stat="identity") +
   coord_flip() +
   scale_y_continuous(labels=percent) +
   ggtitle(expression(
@@ -72,14 +99,6 @@ p <- ggplot(critical_outages,
         panel.background = element_rect(fill = "white"))
 
 print(p)
-
-q <- ggplot(full_outage, aes(duration)) + 
-  geom_histogram(binwidth = 30) + 
-  facet_wrap(~name, scales="free") +
-  ggtitle("Distribution of blackout duration by measure post") +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-print(q)
 
 cat("\nCheck the graphs")
 
