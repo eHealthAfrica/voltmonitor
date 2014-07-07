@@ -35,12 +35,10 @@ __Single summary:__
 * Breakdown of number of outages by time interval.
 
 __Full summary__
-* Max, min, median, 25th and 75th percentile of voltage
+* Distribution of voltages by voltage interval
 * Total number of outages (voltage <= 10V)
 * Median blackout time
-* Distribution of blackout time by time intervals
+* Distribution of blackout time by time interval
 * Number of outages that lasted >8h, their share as % of total number of blackouts
-* Histogram of grid voltage across all measument posts
-* Histograms of voltage for every post
 * Barplot of share of blackouts that lasted > 8h by measurement post
-* Histogram of blackout duration by measurement post
+* Barplot of share of voltage measurements by voltage interval and measurement post
