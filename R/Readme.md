@@ -12,6 +12,7 @@ Prerequisites
 * Following libraries are installed via `install.packages` command: 
   * rjson
   * ggplot2
+  * reshape
   
 Getting started
 -----------------

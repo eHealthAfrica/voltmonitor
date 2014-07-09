@@ -1,6 +1,7 @@
 library('scales')
-library("ggplot2")
-source("helpers.R")
+library('ggplot2')
+library('reshape')
+source('helpers.R')
 options(scipen=999999)
 
 critical_threshold <- 8 * 60 * 60
@@ -13,7 +14,7 @@ cat("Voltage distribution by intervals:\n")
 summary <- table(data$bucket)/nrow(data)
 summary <-as.data.frame(summary)
 summary$Freq <- percent(summary$Freq)
-colnames(summary) <- c('Interval', "Share")
+colnames(summary) <- c('Interval', 'Share')
 print(summary, row.names=F)
 
 #Plotting share of voltage summary buckets by measurement post
@@ -24,7 +25,7 @@ buckets_by_post <- buckets_by_post[with(buckets_by_post, order(buckets_by_post[,
 buckets_by_post$name <- row.names(buckets_by_post)
 order_vector <- buckets_by_post$name
 row.names(buckets_by_post) <- NULL
-buckets_by_post <- melt(buckets_by_post)
+buckets_by_post <- melt(buckets_by_post, id.vars='name')
 
 buckets_by_post$n_n <- factor(buckets_by_post$name, levels=order_vector)
 
@@ -54,8 +55,8 @@ cat("\nMedian blackout time:",
     median(full_outage$duration)/60, 
     "minutes")
 cat("\n\nBlackout distribution by time interval:\n")
-summary <- table(full_outage$bucket)/nrow(data)
-summary <-as.data.frame(summary)
+summary <- table(full_outage$bucket)/nrow(full_outage)
+summary <- as.data.frame(summary)
 summary$Freq <- percent(summary$Freq)
 colnames(summary) <- c('Interval, minutes', "Share")
 print(summary, row.names=F)
