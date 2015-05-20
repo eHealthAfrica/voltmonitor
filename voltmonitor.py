@@ -94,14 +94,18 @@ def process_logfile_data(filename, doc, logdb, voltsdb):
         in_csv = csv.DictReader(input_file, delimiter=',')
 
         for line in in_csv:
-            dt = datetime.datetime.strptime(line['Date'], "%m/%d/%y %H:%M:%S")
+            print(line)
+            try:
+                dt = datetime.datetime.strptime(line['Date'], "%m/%d/%y %H:%M:%S")
 
-            for k, v in devices.items():
-                if v['sensor'] in line:
-                    volts_doc = Volts(sensor_sn=v['sensor-sn'], gps=v['gps'], location=v['location'],
-                                      logger_sn=v['logger-sn'], date=dt, volts=line[v['sensor']])
-                    print(volts_doc)
-                    volts_doc.store(voltsdb)
+                for k, v in devices.items():
+                    if v['sensor'] in line:
+                        volts_doc = Volts(sensor_sn=v['sensor-sn'], gps=v['gps'], location=v['location'],
+                                          logger_sn=v['logger-sn'], date=dt, volts=line[v['sensor']])
+                        print(volts_doc)
+                        volts_doc.store(voltsdb)
+            except Exception as e:
+                print(e)
 
     return True
 
