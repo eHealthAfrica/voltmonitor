@@ -1,32 +1,40 @@
 'use strict';
 
-angular.module('voltsapp', ['ngResource','ui.router','highcharts-ng'])
-    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("/home");
-        $stateProvider
-            .state('home', {
-                url: "/home",
-                templateUrl: "templates/home.html",
-                resolve: {
-                    sensorsService: 'sensorsService',
-                    sensors: function(sensorsService, $stateParams) {
-                        return sensorsService.get({q:'_all_docs', include_docs: 'true', limit: 25});
-                    }
-                },
-                controller: 'HomeCtrl'
-            })
-            .state('data', {
-                url: "/data/:logger",
-                templateUrl: "templates/data.html",
-                resolve: {
-                    voltsService: 'voltsService',
-                    volts: function(voltsService, $stateParams) {
-                        var logger = $stateParams.logger;
-                        return voltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:logger}).$promise;
-                    }
-                },
-                controller: 'DataCtrl'
-            });
-    }]);
+var app = angular.module('voltsApp', ['ngResource','ui.router','highcharts-ng', 'leaflet-directive']);
 
-// startkey=["10509728"]&endkey=["10509728",{}]&
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/");
+    $stateProvider
+        .state('home', {
+            url: "/",
+            templateUrl: "templates/home.html",
+            resolve: {
+                sensorFactory: 'sensorFactory',
+                sensors: function(sensorFactory) {
+                    console.log("loading sensors hc");
+                    return sensorFactory.get({q:'_all_docs', include_docs: 'true'}).$promise;
+                }
+            },
+            controller: 'HomeController',
+            controllerAs: 'hc'
+        })
+        .state('data', {
+            url: "/data/:logger",
+            templateUrl: "templates/data.html",
+            resolve: {
+                voltsService: 'voltsService',
+                volts: function(voltsService, $stateParams) {
+                    console.log("loading volts dc");
+                    var logger = $stateParams.logger;
+                    return voltsService.get({q:'_design', r:'volts', s:'_view', t:'volts', key:logger, descending:true, limit:10000}).$promise;
+                },
+                sensorFactory: 'sensorFactory',
+                sensors: function(sensorFactory) {
+                    console.log("loading sensors dc");
+                    return sensorFactory.get({q:'_all_docs', include_docs: 'true'}).$promise;
+                }
+            },
+            controller: 'DataController',
+            controllerAs: 'dc'
+        });
+}]);

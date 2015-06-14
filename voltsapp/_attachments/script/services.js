@@ -4,16 +4,31 @@
 
 'use strict';
 
-angular.module('voltsapp').factory('sensorsService', function($resource) {
+app.factory('sensorFactory', ['$resource', function($resource) {
+    console.log('sensorFactory');
     return $resource(':protocol//:server/:db/:q/:r/:s/:t', {
             protocol: 'http:', server: 'localhost:5984', db: 'db-sensors'
         }
     );
-});
+}]);
 
-angular.module('voltsapp').factory('voltsService',['$resource', function($resource) {
+//angular.module('voltsApp').factory('sensorsService', function($resource) {
+//    return $resource(':protocol//:server/:db/:q/:r/:s/:t', {
+//            protocol: 'http:', server: 'localhost:5984', db: 'db-sensors'
+//        }
+//    );
+//});
+
+app.factory('voltsService',['$resource', function($resource) {
     return $resource(':protocol//:server/:db/:q/:r/:s/:t', {
             protocol: 'http:', server: 'localhost:5984', db: 'volts'
+        }
+    );
+}]);
+
+app.factory('vlogsService',['$resource', function($resource) {
+    return $resource(':protocol//:server/:db/:q/:r/:s/:t', {
+            protocol: 'http:', server: 'localhost:5984', db: 'volts-logfiles'
         }
     );
 }]);

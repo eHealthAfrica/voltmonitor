@@ -1,0 +1,4 @@
+<h4>Sensor Sites</h4>
+<div class="list-group">
+  <a ng-repeat="sensor in vm.sensors.rows" ui-sref="data({logger:sensor.doc.logger_sn})" class="list-group-item">{{sensor.doc.location}} <br/> ({{sensor.doc.logger_sn}}:{{sensor.doc.sensor_sn}})</a>
+</div>
